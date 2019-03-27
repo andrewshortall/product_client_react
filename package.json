@@ -1,0 +1,19 @@
+{
+  "name": "product_client_react",
+  "version": "1.0.0",
+  "description": "react client",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Humanitec/product_client_react.git"
+  },
+  "author": "mughees",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Humanitec/product_client_react/issues"
+  },
+  "homepage": "https://github.com/Humanitec/product_client_react#readme"
+}
