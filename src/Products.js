@@ -16,14 +16,6 @@ class Products extends React.Component {
           price: 'Price',
           tags: ['Dark blue']
         },
-        {
-          id: 1,
-          image: logo,
-          title: 'Item name',
-          description: 'Overview, an intro using a couple of sentences',
-          price: 'Price',
-          tags: ['Dark green, Neon green']
-        },
       ]
     };
     this.createItems = this.createItems.bind(this);
