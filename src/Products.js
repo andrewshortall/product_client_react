@@ -76,7 +76,7 @@ class Products extends React.Component {
       <div className="products">
         <div className="products__header">
           <h3>Products list</h3>
-          <button class="products__button" onClick={this.addProduct}>+ Add new</button>
+          <button className="products__button" onClick={this.addProduct}>+ Add new</button>
         </div>
         <div className="products__list">        
           {this.createItems()}
