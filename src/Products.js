@@ -16,7 +16,8 @@ class Products extends React.Component {
           price: 'Price',
           tags: ['Dark blue']
         },
-      ]
+      ],
+      cardView: 'list'
     };
     this.createItems = this.createItems.bind(this);
     this.addProduct = this.addProduct.bind(this);
@@ -35,8 +36,12 @@ class Products extends React.Component {
 
   createItems() {
     const items = [];
+    if (!this.state.products.length) {
+      return (<div class="products__empty">No products found.</div>);
+    }
     for (const item of this.state.products) {
       items.push(<Card
+        cardView={this.state.cardView}
         key={item.id}
         id={item.id}
         image={item.image}
@@ -63,11 +68,21 @@ class Products extends React.Component {
     this.setState({products});
   }
 
+  selectView(cardView) {
+    this.setState({cardView});
+  }
+
   render() {
     return (
       <div className="products">
         <div className="products__header">
           <h3>Products list</h3>
+          <div className="product__options">
+            <a className={'products__view-type' + (this.state.cardView === 'list' ? ' products__view-type--active' : '')}
+              onClick={() => {this.selectView('list')}}>List view</a>
+            <a className={'products__view-type' + (this.state.cardView === 'tile' ? ' products__view-type--active' : '')}
+              onClick={() => {this.selectView('tile')}}>Tile view</a>
+          </div>
           <button className="products__button" onClick={this.addProduct}>+ Add new</button>
         </div>
         <div className="products__list">        
