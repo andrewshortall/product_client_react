@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from 'assets/midgard-logo.svg';
 import Card from 'midgard/components/Card/Card';
+import './Products.scss'
 
 class Products extends React.Component {
   constructor(props) {
@@ -73,8 +74,10 @@ class Products extends React.Component {
   render() {
     return (
       <div className="products">
-        <h4>Products list</h4>
-        <button onClick={this.addProduct}>+ Add new</button>
+        <div className="products__header">
+          <h3>Products list</h3>
+          <button class="products__button" onClick={this.addProduct}>+ Add new</button>
+        </div>
         <div className="products__list">        
           {this.createItems()}
         </div>
