@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from 'assets/midgard-logo.svg';
 import Card from 'midgard/components/Card/Card';
-import Button from 'ui/Button/Button';
+import { Button } from 'ui/Button/Button';
 import './Products.scss'
 
 class Products extends React.Component {
