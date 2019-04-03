@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from 'assets/midgard-logo.svg';
 import Card from 'midgard/components/Card/Card';
+import Button from 'ui/Button/Button';
 import './Products.scss'
 
 class Products extends React.Component {
@@ -37,7 +38,7 @@ class Products extends React.Component {
   createItems() {
     const items = [];
     if (!this.state.products.length) {
-      return (<div class="products__empty">No products found.</div>);
+      return (<div className="products__empty">No products found.</div>);
     }
     for (const item of this.state.products) {
       items.push(<Card
@@ -83,7 +84,7 @@ class Products extends React.Component {
             <a className={'products__view-type' + (this.state.cardView === 'tile' ? ' products__view-type--active' : '')}
               onClick={() => {this.selectView('tile')}}>Tile view</a>
           </div>
-          <button className="products__button" onClick={this.addProduct}>+ Add new</button>
+          <Button small onClick={this.addProduct}>+ Add new</Button>
         </div>
         <div className="products__list">        
           {this.createItems()}
