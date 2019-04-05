@@ -10,7 +10,7 @@ class Products extends React.Component {
     this.state = {
       products: [
         {
-          id: 0,
+          id: Math.random().toString(36).substr(2, 5),
           image: logo,
           title: 'Item name',
           description: 'Overview, an intro using a couple of sentences',
@@ -59,7 +59,7 @@ class Products extends React.Component {
   addProduct() {
     const products = this.state.products;
     products.push({
-      id: this.state.products.length + 1,
+      id: Math.random().toString(36).substr(2, 5),
       image: logo,
       title: 'Item name',
       description: 'Description',
