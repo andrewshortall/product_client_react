@@ -1,3 +1,7 @@
++++
+title = "Products client (React)"
++++
+
 # Products client (React)
 
 ## Summary
