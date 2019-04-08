@@ -25,11 +25,11 @@ The build artifacts will be stored in [location].
 
 To **run tests** using [???](???): 
 
-`ng test {name-of-module}`
+`{test command}`
 
 To **run end-to-end tests** using [???](???): 
 
-`ng e2e {name-of-module}`
+`{test command}`
 
 ## File structure
 
