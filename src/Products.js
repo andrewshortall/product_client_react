@@ -1,8 +1,50 @@
 import React from 'react'
-import logo from 'assets/midgard-logo.svg';
-import Card from 'midgard/components/Card/Card';
-import { Button } from 'ui/Button/Button';
-import './Products.scss'
+import logo from 'assets/midgard-logo.svg'
+import Card from 'midgard/components/Card/Card'
+import { Button } from 'ui/Button/Button'
+import styled from 'styled-components'
+import { colors } from 'colors'
+import { rem } from 'polished'
+
+const ProductsWrapper = styled.div`
+  padding: 0 ${rem(24)};
+  position: relative;
+  flex: 1;
+
+  .products {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__list {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 ${rem(16)};
+    }
+
+    &__empty {
+      margin: ${rem(20)} 0;
+    }
+
+    &__view-type {
+      color: ${colors.primary};
+      padding: ${rem(4)} ${rem(8)};
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &--active {
+        background-color: ${colors.primaryLighter};
+        border-radius: ${rem(4)};
+      }
+    }
+  }
+`
 
 class Products extends React.Component {
   constructor(props) {
@@ -12,10 +54,10 @@ class Products extends React.Component {
         {
           id: Math.random().toString(36).substr(2, 5),
           image: logo,
-          title: 'Item name',
-          description: 'Overview, an intro using a couple of sentences',
-          price: 'Price',
-          tags: ['Dark blue']
+          title: '',
+          description: '',
+          price: '',
+          tags: ['']
         },
       ],
       cardView: 'list'
@@ -75,7 +117,7 @@ class Products extends React.Component {
 
   render() {
     return (
-      <div className="products">
+      <ProductsWrapper className="products">
         <div className="products__header">
           <h3>Products list</h3>
           <div className="product__options">
@@ -89,7 +131,7 @@ class Products extends React.Component {
         <div className="products__list">        
           {this.createItems()}
         </div>
-      </div>
+      </ProductsWrapper>
     )
   }
 }
