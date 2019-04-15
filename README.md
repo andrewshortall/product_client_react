@@ -10,40 +10,45 @@ This is a premade frontend client for the [Products module](https://docs.walhall
 
 See the [Interfaces](#interfaces) section for screenshots.
 
-Current React version: **vX.X.X**
+Current React version: **v0.0.1**
 
 ## Dependencies
 
 ### npm libraries
 
--  _List of npm packages used_
--  _List of npm packages used_
+-  `polished`
+-  `react-inline-editing`
+-  `react-redux`
+-  `redux-saga`
+-  `styled-components`
 
 ## Local development
 
 To **build** the project: 
 
-`{build command}`  
+-  Development environment: `webpack --mode development`
+-  Production environment: `webpack --mode production`
 
-The build artifacts will be stored in [location].
+The build artifacts will be stored in the `dist/` directory.
 
-To **run tests** using [???](???): 
+To **run tests** using [Jest](https://jestjs.io/): 
 
-`{test command}`
-
-To **run end-to-end tests** using [???](???): 
-
-`{test command}`
+`jest`
 
 ## File structure
 
--  `/dir`: One-sentence description of what's in here.
--  `/dir`: One-sentence description of what's in here.
--  `/dir`: One-sentence description of what's in here.
+Within the `/src` directory, the following structure is used:
+
+-  `/assets`: Assets to be used within the project.
+-  `/components`: Components that do not have routes assigned to them.
+-  `/pages`: Components that have routes assigned to them.
+-  `/services`: Provides functions that handle data.
+-  `/store`: Contains the actions, reducers and sagas for the client. 
 
 ## Interfaces
 
-_Which interfaces does this client provide? Supply screenshots_
+![image](/src/assets/screenshots/interface-view-list.png)
+![image](/src/assets/screenshots/interface-view-tile.png)
 
 ## BiFrost API implementation
 
