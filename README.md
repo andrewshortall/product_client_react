@@ -47,8 +47,10 @@ Within the `/src` directory, the following structure is used:
 
 ## Interfaces
 
-![image](/src/assets/screenshots/interface-view-list.png)
-![image](/src/assets/screenshots/interface-view-tile.png)
+-  Products list view:
+    ![image](/src/assets/screenshots/interface-view-list.png)
+-  Products tile view:
+    ![image](/src/assets/screenshots/interface-view-tile.png)
 
 ## BiFrost API implementation
 
