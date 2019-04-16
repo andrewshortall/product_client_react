@@ -5,6 +5,7 @@ import { Button } from 'ui/Button/Button'
 import styled from 'styled-components'
 import { colors } from 'colors'
 import { rem } from 'polished'
+import { loadAllProducts } from './store/actions/productActions';
 
 const ProductsWrapper = styled.div`
   padding: 0 ${rem(24)};
@@ -65,6 +66,7 @@ class Products extends React.Component {
     this.createItems = this.createItems.bind(this);
     this.addProduct = this.addProduct.bind(this);
     this.handleAction = this.handleAction.bind(this);
+    this.props.dispatch(loadAllProducts());
   }
 
   handleAction(action, id) {
@@ -136,4 +138,6 @@ class Products extends React.Component {
   }
 }
 
-export default Products;
+const mapStateToProps = (state, ownProps) => ({...ownProps, ...state.productReducer});
+
+export default connect(mapStateToProps)(Products);
