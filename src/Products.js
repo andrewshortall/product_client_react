@@ -1,12 +1,11 @@
 import React from 'react'
-import logo from 'assets/midgard-logo.svg'
 import Card from 'midgard/components/Card/Card'
 import { Button } from 'ui/Button/Button'
 import styled from 'styled-components'
 import { colors } from 'colors'
 import { rem } from 'polished'
 import { connect } from 'react-redux'
-import { loadAllProducts } from './store/actions/productActions'
+import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './store/actions/productActions'
 
 const ProductsWrapper = styled.div`
   padding: 0 ${rem(24)};
@@ -52,16 +51,6 @@ class Products extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [
-        {
-          id: Math.random().toString(36).substr(2, 5),
-          image: logo,
-          title: '',
-          description: '',
-          price: '',
-          tags: ['']
-        },
-      ],
       cardView: 'list'
     };
     this.createItems = this.createItems.bind(this);
@@ -70,50 +59,68 @@ class Products extends React.Component {
     this.props.dispatch(loadAllProducts());
   }
 
-  handleAction(action, id) {
+  /**
+   * Handles the selected action
+   * @param {string} action 
+   * @param {any} payload 
+   */
+  handleAction(action, payload) {
     switch(action) {
       case 'delete':
-      const products = this.state.products.filter(item => item.id !== id);
-        return this.setState({products});
+        return this.props.dispatch(deleteProduct(payload.id));
+      case 'update':
+        const product = {
+          name: payload.title,
+          description: payload.description,
+          status: payload.price,
+          type: payload.tags,
+        };
+        return this.props.dispatch(updateProduct(payload.id, product))
       default:
         return;
     }
   }
 
+  /**
+   * Outputs the list of products as cards
+   */
   createItems() {
     const items = [];
-    if (!this.state.products.length) {
+    if (!this.props.products.length) {
       return (<div className="products__empty">No products found.</div>);
     }
-    for (const item of this.state.products) {
+    for (const item of this.props.products) {
       items.push(<Card
         cardView={this.state.cardView}
-        key={item.id}
-        id={item.id}
+        key={item.uuid}
+        id={item.uuid}
         image={item.image}
-        title={item.title}
+        title={item.name}
         description={item.description}
-        price={item.price}
-        tags={item.tags}
+        price={item.status}
+        tags={item.category}
         action={this.handleAction}
-         />);
+      />);
     }
     return items;
   }
 
+  /**
+   * Adds a new product
+   */
   addProduct() {
-    const products = this.state.products;
-    products.push({
-      id: Math.random().toString(36).substr(2, 5),
-      image: logo,
-      title: 'Item name',
-      description: 'Description',
-      price: 'Price',
-      tags: ['Tag 1', 'Tag 2']
-    });
-    this.setState({products});
+    this.props.dispatch(createProduct({
+      name: 'New item',
+      description: '',
+      status: '',
+      type: ''
+    }));
   }
 
+  /**
+   * Updates the card view type
+   * @param {string} cardView the view to set
+   */
   selectView(cardView) {
     this.setState({cardView});
   }

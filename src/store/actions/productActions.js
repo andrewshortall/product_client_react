@@ -21,15 +21,14 @@ export const PRODUCT_DELETE_FAIL = 'PRODUCT/DELETE_FAIL';
 
 /**
  * Load all products action
- * @param {{username: string, password: string}} credentials
  */
-export const loadAllProducts = () => ({ type: PRODUCT_LOAD_ALL, credentials });
+export const loadAllProducts = () => ({ type: PRODUCT_LOAD_ALL });
 
 /**
  * Load product action
  * @param id
  */
-export const loadProduct = (id) => ({ type: PRODUCT_LOAD, id });
+export const loadProduct = (uuid) => ({ type: PRODUCT_LOAD, uuid });
 
 /**
  * Create product action
@@ -42,10 +41,10 @@ export const createProduct = (data) => ({ type: PRODUCT_CREATE, data });
  * @param id
  * @param data
  */
-export const updateProduct = (id, data) => ({ type: PRODUCT_UPDATE, id, data });
+export const updateProduct = (uuid, product) => ({ type: PRODUCT_UPDATE, payload: { uuid, product } });
 
 /**
  * Delete product action
  * @param id
  */
-export const deleteProduct = (id) => ({ type: PRODUCT_DELETE, id });
+export const deleteProduct = (uuid) => ({ type: PRODUCT_DELETE, uuid });
