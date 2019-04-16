@@ -37,13 +37,9 @@ const initialState = {
 
 // Reducer
 export default (state = initialState, action) => {
-  const ids = [];
-  const entities = {};
+  let ids = [];
+  let entities = {};
   let products = [];
-
-  console.log('sele', action);
-
-  console.log(state);
   switch (action.type) {
     // Load all products
     case PRODUCT_LOAD_ALL:
@@ -73,7 +69,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        loaded: true,
+        loaded: false,
         error: action.error
       };
 
@@ -96,14 +92,14 @@ export default (state = initialState, action) => {
         loaded: true,
         ids,
         entities,
-        
+        products
       };
 
     case PRODUCT_LOAD_FAIL:
       return {
         ...state,
         loading: false,
-        loaded: true,
+        loaded: false,
         error: action.error
       };
 
@@ -117,13 +113,17 @@ export default (state = initialState, action) => {
       };
 
     case PRODUCT_CREATE_SUCCESS:
-      ids.push(product.uuid);
-      entities[product.uuid] = action.product;
+      ids = state.ids;
+      entities = state.entities;
+      ids.push(action.product.uuid);
+      entities[action.product.uuid] = action.product;
       ids.forEach(id => products.push(entities[id]));
       return {
         ...state,
         creating: false,
         created: true,
+        ids,
+        entities,
         products
       };
 
@@ -131,7 +131,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         creating: false,
-        created: true,
+        created: false,
         error: action.error
       };
     
@@ -145,6 +145,8 @@ export default (state = initialState, action) => {
       };
 
     case PRODUCT_UPDATE_SUCCESS:
+      ids = state.ids;
+      entities = state.entities;
       entities[product.id] = action.product;
       ids.forEach(id => products.push(entities[id]));
       return {
@@ -160,7 +162,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         updating: false,
-        updated: true,
+        updated: false,
         error: action.error
       };
 
@@ -174,9 +176,10 @@ export default (state = initialState, action) => {
       };
 
     case PRODUCT_DELETE_SUCCESS:
-      console.log('succ', action);
-      ids = ids.filter(id => id !== uuid);
-      entities[uuid] = undefined;
+      ids = state.ids;
+      entities = state.entities;
+      ids = ids.filter(id => id !== action.uuid);
+      entities[action.uuid] = undefined;
       ids.forEach(id => products.push(entities[id]));
       return {
         ...state,
@@ -191,7 +194,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         deleting: false,
-        deleted: true,
+        deleted: false,
         error: action.error
       };
       
