@@ -5,7 +5,8 @@ import { Button } from 'ui/Button/Button'
 import styled from 'styled-components'
 import { colors } from 'colors'
 import { rem } from 'polished'
-import { loadAllProducts } from './store/actions/productActions';
+import { connect } from 'react-redux'
+import { loadAllProducts } from './store/actions/productActions'
 
 const ProductsWrapper = styled.div`
   padding: 0 ${rem(24)};
