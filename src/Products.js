@@ -91,6 +91,7 @@ class Products extends React.Component {
     }
     for (const item of this.props.products) {
       items.push(<Card
+        disabled={this.props.updating}
         cardView={this.state.cardView}
         key={item.uuid}
         id={item.uuid}
@@ -98,7 +99,7 @@ class Products extends React.Component {
         title={item.name}
         description={item.description}
         price={item.status}
-        tags={item.category}
+        tags={item.type}
         action={this.handleAction}
       />);
     }

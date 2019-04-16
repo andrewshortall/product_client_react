@@ -139,8 +139,8 @@ export default (state = initialState, action) => {
     case PRODUCT_UPDATE:
       return {
         ...state,
-        loading: true,
-        loaded: false,
+        updating: true,
+        updated: false,
         error: null
       };
 

@@ -15,7 +15,7 @@ import {
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
 } from '../actions/productActions';
-import { put, takeLatest, all, call } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery, all, call } from 'redux-saga/effects';
 import { httpService } from 'midgard/modules/http/http.service';
 import { environment } from 'environment';
 
@@ -87,11 +87,11 @@ function* watchCreateProduct() {
 }
 
 function* watchUpdateProduct() {
-  yield takeLatest(PRODUCT_UPDATE, updateProduct)
+  yield takeEvery(PRODUCT_UPDATE, updateProduct)
 }
 
 function* watchDeleteProduct() {
-  yield takeLatest(PRODUCT_DELETE, deleteProduct)
+  yield takeEvery(PRODUCT_DELETE, deleteProduct)
 }
 
 export default function* productSaga() {
