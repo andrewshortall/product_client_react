@@ -20,31 +20,31 @@ export const PRODUCT_DELETE_SUCCESS = 'PRODUCT/DELETE_SUCCESS';
 export const PRODUCT_DELETE_FAIL = 'PRODUCT/DELETE_FAIL';
 
 /**
- * Load all products action
+ * Action to load all products and put them into the store
  */
 export const loadAllProducts = () => ({ type: PRODUCT_LOAD_ALL });
 
 /**
- * Load product action
- * @param id
+ * Action to load a specific product and put it into the store
+ * @param {string} uuid the uuid of the product
  */
 export const loadProduct = (uuid) => ({ type: PRODUCT_LOAD, uuid });
 
 /**
- * Create product action
- * @param data
+ * Action to create a product and put the response into the store
+ * @param {string} data the data to send in the request
  */
 export const createProduct = (data) => ({ type: PRODUCT_CREATE, data });
 
 /**
- * Update product action
- * @param id
- * @param data
+ * Action to update an existing product and edit its value in the store
+ * @param {string} uuid the uuid of the product
+ * @param {string} data the data to send in the request
  */
-export const updateProduct = (uuid, product) => ({ type: PRODUCT_UPDATE, payload: { uuid, product } });
+export const updateProduct = (uuid, data) => ({ type: PRODUCT_UPDATE, payload: { uuid, data } });
 
 /**
- * Delete product action
- * @param id
+ * Action to delete an existing product and remove its value from the store
+ * @param {string} uuid the uuid of the product
  */
 export const deleteProduct = (uuid) => ({ type: PRODUCT_DELETE, uuid });

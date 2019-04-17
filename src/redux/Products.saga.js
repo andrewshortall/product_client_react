@@ -14,7 +14,7 @@ import {
   PRODUCT_DELETE,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
-} from '../actions/productActions';
+} from './Products.actions';
 import { put, takeLatest, takeEvery, all, call } from 'redux-saga/effects';
 import { httpService } from 'midgard/modules/http/http.service';
 import { environment } from 'environment';
@@ -54,7 +54,7 @@ function* createProduct(payload) {
  
 function* updateProduct(payload) {
   try {
-    const product = yield call(httpService.makeRequest, 'put', `${environment.API_URL}products/products/${payload.payload.uuid}/`, payload.payload.product, true);
+    const product = yield call(httpService.makeRequest, 'put', `${environment.API_URL}products/products/${payload.payload.uuid}/`, payload.payload.data, true);
     yield [
       yield put({ type: PRODUCT_UPDATE_SUCCESS, product: product.data })
     ];
@@ -94,7 +94,7 @@ function* watchDeleteProduct() {
   yield takeEvery(PRODUCT_DELETE, deleteProduct)
 }
 
-export default function* productSaga() {
+export default function* productsSaga() {
   yield all([
     watchLoadAllProducts(),
     watchLoadProduct(),

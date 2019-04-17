@@ -14,7 +14,7 @@ import {
   PRODUCT_DELETE,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
-} from '../actions/productActions';
+} from './Products.actions';
 
 const initialState = {
   loading: false,

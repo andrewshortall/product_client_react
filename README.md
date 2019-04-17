@@ -41,9 +41,7 @@ Within the `/src` directory, the following structure is used:
 
 -  `/assets`: Assets to be used within the project.
 -  `/components`: Components that do not have routes assigned to them.
--  `/pages`: Components that have routes assigned to them.
--  `/services`: Provides functions that handle data.
--  `/store`: Contains the actions, reducers and sagas for the client. 
+-  `/redux`: Contains the actions, reducers and sagas for the client. 
 
 ## Interfaces
 

@@ -5,7 +5,8 @@ import styled from 'styled-components'
 import { colors } from 'colors'
 import { rem } from 'polished'
 import { connect } from 'react-redux'
-import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './store/actions/productActions'
+import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './redux/Products.actions'
+import ContentSwitcher from './components/ContentSwitcher/ContentSwitcher'
 
 const ProductsWrapper = styled.div`
   padding: 0 ${rem(24)};
@@ -51,7 +52,11 @@ class Products extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cardView: 'list'
+      cardView: 'list',
+      viewTypes: [
+        { name: 'List view', value: 'list', active: true },
+        { name: 'Tile view', value: 'tile', active: false },
+      ]
     };
     this.createItems = this.createItems.bind(this);
     this.addProduct = this.addProduct.bind(this);
@@ -120,10 +125,14 @@ class Products extends React.Component {
 
   /**
    * Updates the card view type
-   * @param {string} cardView the view to set
+   * @param {string} cardView the active view
    */
-  selectView(cardView) {
-    this.setState({cardView});
+  selectView(cardView, component) {
+    const viewTypes = component.state.viewTypes.map(view => ({
+      ...view,
+      active: view.value === cardView
+    }));
+    component.setState({viewTypes, cardView});
   }
 
   render() {
@@ -131,12 +140,7 @@ class Products extends React.Component {
       <ProductsWrapper className="products">
         <div className="products__header">
           <h3>Products list</h3>
-          <div className="product__options">
-            <a className={'products__view-type' + (this.state.cardView === 'list' ? ' products__view-type--active' : '')}
-              onClick={() => {this.selectView('list')}}>List view</a>
-            <a className={'products__view-type' + (this.state.cardView === 'tile' ? ' products__view-type--active' : '')}
-              onClick={() => {this.selectView('tile')}}>Tile view</a>
-          </div>
+          <ContentSwitcher options={this.state.viewTypes} action={(event) => this.selectView(event, this)} />
           <Button small onClick={this.addProduct}>+ Add new</Button>
         </div>
         <div className="products__list">        
