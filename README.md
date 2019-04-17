@@ -50,19 +50,15 @@ Within the `/src` directory, the following structure is used:
 -  Products tile view:
     ![image](/src/assets/screenshots/interface-view-tile.png)
 
-## BiFrost API implementation
-
-_Describe how the client implements the BiFrost API in the code_
-
 ## Services
 
 This client connects to the following services:
 
 -  [Products service (Django)](https://docs.walhall.io/marketplace/products-module/products-service)
 
-## API documentation
+## API documentation (React Styleguidist)
 
-_Describe how to generate the JSDoc documentation_
+Run `npm run styleguidist` to generate Styleguidist documentation to the `/styleguide` directory.
 
 ## License
 
