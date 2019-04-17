@@ -26,14 +26,14 @@ Current React version: **v0.0.1**
 
 To **build** the project: 
 
--  Development environment: `webpack --mode development`
--  Production environment: `webpack --mode production`
+-  Development environment: `npm run build`
+-  Production environment: `npm run build-prod`
 
 The build artifacts will be stored in the `dist/` directory.
 
 To **run tests** using [Jest](https://jestjs.io/): 
 
-`jest`
+`npm run test`
 
 ## File structure
 
