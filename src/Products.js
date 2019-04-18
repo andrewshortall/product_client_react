@@ -7,6 +7,7 @@ import { rem } from 'polished'
 import { connect } from 'react-redux'
 import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './redux/Products.actions'
 import ContentSwitcher from './components/ContentSwitcher/ContentSwitcher'
+import FjCard from 'ui/Card/Card';
 
 const ProductsWrapper = styled.div`
   padding: 0 ${rem(24)};
@@ -91,7 +92,7 @@ class Products extends React.Component {
    */
   createItems() {
     const items = [];
-    if (!this.props.products.length) {
+    if (!this.props.products || !this.props.products.length) {
       return (<div className="products__empty">No products found.</div>);
     }
     for (const item of this.props.products) {
@@ -143,7 +144,8 @@ class Products extends React.Component {
           <ContentSwitcher options={this.state.viewTypes} action={(event) => this.selectView(event, this)} />
           <Button small onClick={this.addProduct}>+ Add new</Button>
         </div>
-        <div className="products__list">        
+        <div className="products__list">
+          <FjCard content="Description">Test main</FjCard>        
           {this.createItems()}
         </div>
       </ProductsWrapper>
