@@ -7,7 +7,6 @@ import { rem } from 'polished'
 import { connect } from 'react-redux'
 import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './redux/Products.actions'
 import ContentSwitcher from './components/ContentSwitcher/ContentSwitcher'
-import FjCard from 'ui/Card/Card';
 
 const ProductsWrapper = styled.div`
   padding: 0 ${rem(24)};
@@ -145,7 +144,6 @@ class Products extends React.Component {
           <Button small onClick={this.addProduct}>+ Add new</Button>
         </div>
         <div className="products__list">
-          <FjCard content="Description">Test main</FjCard>        
           {this.createItems()}
         </div>
       </ProductsWrapper>
