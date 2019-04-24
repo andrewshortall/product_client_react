@@ -89,33 +89,13 @@ const ProductsCardItemWrapper = styled.div`
     max-width: ${rem(320)};
 
     .card {
-      &__container {
-        flex: 1;
+      &__row {
         flex-direction: column;
-        position: relative;
       }
 
       &__image {
-        height: ${rem(32)};
-        width: ${rem(32)};
-        position: absolute;
-        top: ${rem(10)};
-        right: ${rem(10)};
-      }
-
-      &__title {
-        margin-right: ${rem(32)};
-      }
-
-      &__details {
         display: flex;
-        font-size: ${rem(12)};
-
-        > * {
-          flex: 1;
-          padding: ${rem(5)} 0;
-          height: initial;
-        }
+        margin: auto;
       }
 
       &__options {
@@ -157,7 +137,6 @@ function ProductsCardItem({id, options, menuItems}) {
       layout={options.layout}
       disabled={options.disabled}>
       <FjCardItem
-        className="card"
         content={
         <React.Fragment>
           <div className="card__small">Created on {createDate} | Edited on {editDate}</div>
@@ -195,68 +174,70 @@ function ProductsCardItem({id, options, menuItems}) {
             </div>
           </div>
         </React.Fragment>}>
-        <div className="card__row">
-          <div className="card__column">
-            <div className="card__image" onClick={(event) => event.stopPropagation()}>
-              <img src={options.file || logo} />
+        <div className="card__header">
+          <div className="card__row">
+            <div className="card__column">
+              <div className="card__image" onClick={(event) => event.stopPropagation()}>
+                <img src={options.file || logo} />
+              </div>
             </div>
-          </div>
-          <div className="card__column card__column--flex">
-            <div 
-              onClick={(event) => event.stopPropagation()}
-              className="card__field card__field--primary">
-              <EditableLabel
-                inputPlaceHolder="Enter name"
-                inputClassName="card__input"
-                text={options.name}
-                onFocusOut={(event) => update(id, options.action, 'name', event)} />
+            <div className="card__column card__column--flex">
+              <div 
+                onClick={(event) => event.stopPropagation()}
+                className="card__field card__field--primary">
+                <EditableLabel
+                  inputPlaceHolder="Enter name"
+                  inputClassName="card__input"
+                  text={options.name}
+                  onFocusOut={(event) => update(id, options.action, 'name', event)} />
+              </div>
+              <div 
+                onClick={(event) => event.stopPropagation()}
+                className="card__field card__field--secondary">
+                <EditableLabel
+                  inputPlaceHolder="Enter make"
+                  inputClassName="card__input"
+                  text={options.make}
+                  onFocusOut={(event) => update(id, options.action, 'make', event)} />
+              </div>
+              <div 
+                onClick={(event) => event.stopPropagation()}
+                className="card__field card__field--secondary">
+                <EditableLabel
+                  inputPlaceHolder="Enter type"
+                  inputClassName="card__input"
+                  text={options.type}
+                  onFocusOut={(event) => update(id, options.action, 'type', event)} />
+              </div>
             </div>
-            <div 
-              onClick={(event) => event.stopPropagation()}
-              className="card__field card__field--secondary">
-              <EditableLabel
-                inputPlaceHolder="Enter make"
-                inputClassName="card__input"
-                text={options.make}
-                onFocusOut={(event) => update(id, options.action, 'make', event)} />
+            <div className="card__column card__column--flex">
+              <div 
+                onClick={(event) => event.stopPropagation()}
+                className="card__field card__field--secondary">
+                <EditableLabel
+                  inputPlaceHolder="Enter ref"
+                  inputClassName="card__input"
+                  text={options.reference_id}
+                  onFocusOut={(event) => update(id, options.action, 'reference_id', event)} />
+              </div>
+              <div 
+                onClick={(event) => event.stopPropagation()}
+                className="card__field card__field--secondary">
+                <EditableLabel
+                  inputPlaceHolder="Enter style"
+                  inputClassName="card__input"
+                  text={options.style}
+                  onFocusOut={(event) => update(id, options.action, 'style', event)} />
+              </div>
             </div>
-            <div 
-              onClick={(event) => event.stopPropagation()}
-              className="card__field card__field--secondary">
-              <EditableLabel
-                inputPlaceHolder="Enter type"
-                inputClassName="card__input"
-                text={options.type}
-                onFocusOut={(event) => update(id, options.action, 'type', event)} />
-            </div>
-          </div>
-          <div className="card__column card__column--flex">
-            <div 
-              onClick={(event) => event.stopPropagation()}
-              className="card__field card__field--secondary">
-              <EditableLabel
-                inputPlaceHolder="Enter ref"
-                inputClassName="card__input"
-                text={options.reference_id}
-                onFocusOut={(event) => update(id, options.action, 'reference_id', event)} />
-            </div>
-            <div 
-              onClick={(event) => event.stopPropagation()}
-              className="card__field card__field--secondary">
-              <EditableLabel
-                inputPlaceHolder="Enter style"
-                inputClassName="card__input"
-                text={options.style}
-                onFocusOut={(event) => update(id, options.action, 'style', event)} />
-            </div>
-          </div>
-          <div className="card__column">
-            <div 
-              onClick={(event) => event.stopPropagation()}
-              className="card__options">
-              <Menu xPosition="right" yPosition="center" open={menuOpened} setOpen={toggleMenu} onActionClicked={(event) => selectAction(id, event, options.action)} menuItems={menuItems}>
-                <Button secondary small onClick={() => toggleMenu(!menuOpened)}>...</Button>
-              </Menu>
+            <div className="card__column">
+              <div 
+                onClick={(event) => event.stopPropagation()}
+                className="card__options">
+                <Menu xPosition="right" yPosition="center" open={menuOpened} setOpen={toggleMenu} onActionClicked={(event) => selectAction(id, event, options.action)} menuItems={menuItems}>
+                  <Button secondary small onClick={() => toggleMenu(!menuOpened)}>...</Button>
+                </Menu>
+              </div>
             </div>
           </div>
         </div>
