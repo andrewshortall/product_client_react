@@ -1,5 +1,4 @@
 import React from 'react'
-import Card from 'midgard/components/Card/Card'
 import { Button } from 'ui/Button/Button'
 import styled from 'styled-components'
 import { colors } from 'colors'
@@ -7,6 +6,7 @@ import { rem } from 'polished'
 import { connect } from 'react-redux'
 import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './redux/Products.actions'
 import ContentSwitcher from './components/ContentSwitcher/ContentSwitcher'
+import ProductsCardItem from './components/ProductsCardItem/ProductsCardItem'
 
 const ProductsWrapper = styled.div`
   padding: 0 ${rem(24)};
@@ -52,8 +52,8 @@ class Products extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cardView: 'list',
-      viewTypes: [
+      layout: 'list',
+      layoutTypes: [
         { name: 'List view', value: 'list', active: true },
         { name: 'Tile view', value: 'tile', active: false },
       ]
@@ -74,13 +74,19 @@ class Products extends React.Component {
       case 'delete':
         return this.props.dispatch(deleteProduct(payload.id));
       case 'update':
+        const oldProduct = this.props.products.find(item => item.uuid === payload.id);
         const product = {
-          name: payload.title,
-          description: payload.description,
-          status: payload.price,
-          type: payload.tags,
+          name: oldProduct.name,
+          make: oldProduct.make,
+          type: oldProduct.type,
+          reference_id: oldProduct.reference_id,
+          style: oldProduct.style,
+          model: oldProduct.model,
+          description: oldProduct.description,
+          status: oldProduct.status,
+          ...payload
         };
-        return this.props.dispatch(updateProduct(payload.id, product))
+        return this.props.dispatch(updateProduct(payload.id, product));
       default:
         return;
     }
@@ -95,17 +101,17 @@ class Products extends React.Component {
       return (<div className="products__empty">No products found.</div>);
     }
     for (const item of this.props.products) {
-      items.push(<Card
-        disabled={this.props.updating}
-        cardView={this.state.cardView}
+      items.push(<ProductsCardItem
+        options={{
+          ...item,
+          layout: this.state.layout,
+          action: this.handleAction
+        }}
         key={item.uuid}
         id={item.uuid}
-        image={item.image}
-        title={item.name}
-        description={item.description}
-        price={item.status}
-        tags={item.type}
-        action={this.handleAction}
+        menuItems ={[
+          {value: 'delete', label: 'Delete'}
+        ]}
       />);
     }
     return items;
@@ -117,22 +123,26 @@ class Products extends React.Component {
   addProduct() {
     this.props.dispatch(createProduct({
       name: 'New item',
+      make: '',
+      type: '',
+      reference_id: '',
+      style: '',
+      model: '',
       description: '',
-      status: '',
-      type: ''
+      status: ''
     }));
   }
 
   /**
    * Updates the card view type
-   * @param {string} cardView the active view
+   * @param {string} layout the active view
    */
-  selectView(cardView, component) {
-    const viewTypes = component.state.viewTypes.map(view => ({
-      ...view,
-      active: view.value === cardView
+  selectLayout(layout, component) {
+    const layoutTypes = component.state.layoutTypes.map(item => ({
+      ...item,
+      active: item.value === layout
     }));
-    component.setState({viewTypes, cardView});
+    component.setState({layoutTypes, layout});
   }
 
   render() {
@@ -140,7 +150,7 @@ class Products extends React.Component {
       <ProductsWrapper className="products">
         <div className="products__header">
           <h3>Products list</h3>
-          <ContentSwitcher options={this.state.viewTypes} action={(event) => this.selectView(event, this)} />
+          <ContentSwitcher options={this.state.layoutTypes} action={(event) => this.selectLayout(event, this)} />
           <Button small onClick={this.addProduct}>+ Add new</Button>
         </div>
         <div className="products__list">

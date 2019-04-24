@@ -147,7 +147,7 @@ export default (state = initialState, action) => {
     case PRODUCT_UPDATE_SUCCESS:
       ids = state.ids;
       entities = state.entities;
-      entities[product.id] = action.product;
+      entities[action.product.uuid] = action.product;
       ids.forEach(id => products.push(entities[id]));
       return {
         ...state,
