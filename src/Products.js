@@ -5,19 +5,32 @@ import { colors } from 'colors'
 import { rem } from 'polished'
 import { connect } from 'react-redux'
 import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './redux/Products.actions'
-import ContentSwitcher from './components/ContentSwitcher/ContentSwitcher'
+import ViewSwitcher from '../../../midgard/components/ViewSwitcher/ViewSwitcher'
 import ProductsCardItem from './components/ProductsCardItem/ProductsCardItem'
+import listIcon from 'assets/icon-list.svg'
+import tileIcon from 'assets/icon-tile.svg'
+import plusIcon from 'assets/icon-plus.svg'
 
 const ProductsWrapper = styled.div`
   padding: 0 ${rem(24)};
   position: relative;
   flex: 1;
+  margin-bottom: ${rem(24)};
 
   .products {
     &__header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      &__left {
+        display: flex;
+        align-items: center;
+
+        > :first-child {
+          margin-right: ${rem(8)};
+        }
+      }
     }
 
     &__list {
@@ -54,8 +67,8 @@ class Products extends React.Component {
     this.state = {
       layout: 'list',
       layoutTypes: [
-        { name: 'List view', value: 'list', active: true },
-        { name: 'Tile view', value: 'tile', active: false },
+        { name: 'List', value: 'list', active: true, icon: listIcon },
+        { name: 'Tiles', value: 'tile', active: false, icon: tileIcon },
       ]
     };
     this.createItems = this.createItems.bind(this);
@@ -69,24 +82,12 @@ class Products extends React.Component {
    * @param {string} action 
    * @param {any} payload 
    */
-  handleAction(action, payload) {
+  handleAction(action, id, payload) {
     switch(action) {
       case 'delete':
-        return this.props.dispatch(deleteProduct(payload.id));
+        return this.props.dispatch(deleteProduct(id));
       case 'update':
-        const oldProduct = this.props.products.find(item => item.uuid === payload.id);
-        const product = {
-          name: oldProduct.name,
-          make: oldProduct.make,
-          type: oldProduct.type,
-          reference_id: oldProduct.reference_id,
-          style: oldProduct.style,
-          model: oldProduct.model,
-          description: oldProduct.description,
-          status: oldProduct.status,
-          ...payload
-        };
-        return this.props.dispatch(updateProduct(payload.id, product));
+        return this.props.dispatch(updateProduct(id, payload));
       default:
         return;
     }
@@ -102,16 +103,13 @@ class Products extends React.Component {
     }
     for (const item of this.props.products) {
       items.push(<ProductsCardItem
-        options={{
-          ...item,
-          layout: this.state.layout,
-          action: this.handleAction
-        }}
+        product={item}
+        layout={this.state.layout}
         key={item.uuid}
-        id={item.uuid}
-        menuItems ={[
+        options ={[
           {value: 'delete', label: 'Delete'}
         ]}
+        action={this.handleAction}
       />);
     }
     return items;
@@ -149,9 +147,14 @@ class Products extends React.Component {
     return (
       <ProductsWrapper className="products">
         <div className="products__header">
-          <h3>Products list</h3>
-          <ContentSwitcher options={this.state.layoutTypes} action={(event) => this.selectLayout(event, this)} />
-          <Button small onClick={this.addProduct}>+ Add new</Button>
+          <div className="products__header__left">
+            <h3>Products list</h3>
+            <Button small onClick={this.addProduct}>
+              <img src={plusIcon} />
+              <span>Add new</span>
+            </Button>
+          </div>
+          <ViewSwitcher options={this.state.layoutTypes} action={(event) => this.selectLayout(event, this)} />
         </div>
         <div className="products__list">
           {this.createItems()}
