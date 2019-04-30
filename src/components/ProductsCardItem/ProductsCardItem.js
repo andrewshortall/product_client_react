@@ -1,5 +1,5 @@
 import React from 'react'
-import CardItem from 'ui/CardItem/CardItem'
+import CardItem from 'midgard/components/CardItem/CardItem'
 
 function ProductsCardItem({ layout, product, options, action }) {
   const title = { label: 'Product name', prop: 'name', value: product.name };

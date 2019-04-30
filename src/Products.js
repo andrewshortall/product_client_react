@@ -5,7 +5,7 @@ import { colors } from 'colors'
 import { rem } from 'polished'
 import { connect } from 'react-redux'
 import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './redux/Products.actions'
-import ViewSwitcher from '../../../midgard/components/ViewSwitcher/ViewSwitcher'
+import ViewSwitcher from 'midgard/components/ViewSwitcher/ViewSwitcher'
 import ProductsCardItem from './components/ProductsCardItem/ProductsCardItem'
 import listIcon from 'assets/icon-list.svg'
 import tileIcon from 'assets/icon-tile.svg'
@@ -164,6 +164,6 @@ class Products extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({...ownProps, ...state.productReducer});
+const mapStateToProps = (state, ownProps) => ({...ownProps, ...state.productsReducer});
 
 export default connect(mapStateToProps)(Products);
