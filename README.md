@@ -17,7 +17,6 @@ Current React version: **v0.0.1**
 ### npm libraries
 
 -  `polished`
--  `react-inline-editing`
 -  `react-redux`
 -  `redux-saga`
 -  `styled-components`
