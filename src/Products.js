@@ -149,7 +149,7 @@ class Products extends React.Component {
         <div className="products__header">
           <div className="products__header__left">
             <h3>Products list</h3>
-            <Button small onClick={this.addProduct}>
+            <Button size="small" onClick={this.addProduct}>
               <img src={plusIcon} />
               <span>Add new</span>
             </Button>
