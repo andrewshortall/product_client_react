@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'ui/Button/Button'
+import { FjButton } from 'freyja-react'
 import styled from 'styled-components'
 import { colors } from 'colors'
 import { rem } from 'polished'
@@ -149,10 +149,10 @@ class Products extends React.Component {
         <div className="products__header">
           <div className="products__header__left">
             <h3>Products list</h3>
-            <Button size="small" onClick={this.addProduct}>
+            <FjButton size="small" onClick={this.addProduct}>
               <img src={plusIcon} />
               <span>Add new</span>
-            </Button>
+            </FjButton>
           </div>
           <ViewSwitcher options={this.state.layoutTypes} action={(event) => this.selectLayout(event, this)} />
         </div>
