@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { colors } from 'colors'
 import { rem } from 'polished'
 import { connect } from 'react-redux'
-import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './redux/Products.actions'
+import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './redux/products.actions'
 import ViewSwitcher from 'midgard/components/ViewSwitcher/ViewSwitcher'
 import ProductsCardItem from './components/ProductsCardItem/ProductsCardItem'
 import listIcon from 'assets/icon-list.svg'
@@ -79,8 +79,8 @@ class Products extends React.Component {
 
   /**
    * Handles the selected action
-   * @param {string} action 
-   * @param {any} payload 
+   * @param {string} action
+   * @param {any} payload
    */
   handleAction(action, id, payload) {
     switch(action) {

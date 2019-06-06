@@ -14,12 +14,12 @@ import {
   PRODUCT_DELETE,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
-} from './Products.actions';
+} from './products.actions';
 
 const initialState = {
   loading: false,
   loaded: false,
-  
+
   creating: false,
   created: false,
 
@@ -134,7 +134,7 @@ export default (state = initialState, action) => {
         created: false,
         error: action.error
       };
-    
+
     // Update product
     case PRODUCT_UPDATE:
       return {
@@ -197,7 +197,7 @@ export default (state = initialState, action) => {
         deleted: false,
         error: action.error
       };
-      
+
     default:
       return state
   }
