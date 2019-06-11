@@ -101,6 +101,9 @@ class Products extends React.Component {
     if (!this.props.products || !this.props.products.length) {
       return (<div className="products__empty">No products found.</div>);
     }
+      if (this.props.products && this.props.products[0].detail) {
+          return (<div className="products__empty">{this.props.products[0].detail}</div>);
+      }
     for (const item of this.props.products) {
       items.push(<ProductsCardItem
         product={item}
@@ -127,7 +130,7 @@ class Products extends React.Component {
       style: '',
       model: '',
       description: '',
-      status: ''
+      status: '',
     }));
   }
 
