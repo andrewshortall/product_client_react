@@ -23,6 +23,7 @@ function ProductsCardItem({ layout, product, options, action }) {
       model: details.value,
       description: description.value,
       status: tags.value,
+      uuid: uuid,
       ...payload
     };
     action(event, uuid, product);

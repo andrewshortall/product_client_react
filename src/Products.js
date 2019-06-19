@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import { colors } from 'colors'
 import { rem } from 'polished'
 import { connect } from 'react-redux'
-import { loadAllProducts, createProduct, deleteProduct, updateProduct } from './redux/products.actions'
 import ViewSwitcher from 'midgard/components/ViewSwitcher/ViewSwitcher'
 import ProductsCardItem from './components/ProductsCardItem/ProductsCardItem'
+import Crud, { CrudContext } from 'midgard/modules/crud/Crud';
 import listIcon from 'assets/icon-list.svg'
 import tileIcon from 'assets/icon-tile.svg'
 import plusIcon from 'assets/icon-plus.svg'
@@ -74,7 +74,6 @@ class Products extends React.Component {
     this.createItems = this.createItems.bind(this);
     this.addProduct = this.addProduct.bind(this);
     this.handleAction = this.handleAction.bind(this);
-    this.props.dispatch(loadAllProducts());
   }
 
   /**
@@ -82,56 +81,58 @@ class Products extends React.Component {
    * @param {string} action
    * @param {any} payload
    */
-  handleAction(action, id, payload) {
-    switch(action) {
-      case 'delete':
-        return this.props.dispatch(deleteProduct(id));
-      case 'update':
-        return this.props.dispatch(updateProduct(id, payload));
-      default:
-        return;
-    }
+  handleAction(crud, action, id, payload) {
+      switch(action) {
+          case 'delete':
+              return crud.deleteItem({idProp:"uuid", dataProp:"results", data:payload});
+          case 'update':
+              return  crud.updateItem({idProp:"uuid", dataProp:"results", data:payload});
+          default:
+              return;
+      }
   }
 
   /**
    * Outputs the list of products as cards
    */
-  createItems() {
+  createItems(crud) {
     const items = [];
-    if (!this.props.products || !this.props.products.length) {
-      return (<div className="products__empty">No products found.</div>);
-    }
-      if (this.props.products && this.props.products[0].detail) {
-          return (<div className="products__empty">{this.props.products[0].detail}</div>);
+      const data = crud.getData();
+      if (data && data.results && data.results.length) {
+      const results = data.results;
+      for (const item of results) {
+        items.push(<ProductsCardItem
+              product={item}
+              layout={this.state.layout}
+              key={item.uuid}
+              options ={[
+                  {value: 'delete', label: 'Delete'}
+              ]}
+              action={this.handleAction.bind(null, crud)}
+          />);
       }
-    for (const item of this.props.products) {
-      items.push(<ProductsCardItem
-        product={item}
-        layout={this.state.layout}
-        key={item.uuid}
-        options ={[
-          {value: 'delete', label: 'Delete'}
-        ]}
-        action={this.handleAction}
-      />);
-    }
+    } else {
+          return (<div className="products__empty">No products found.</div>);
+      }
     return items;
   }
 
   /**
    * Adds a new product
    */
-  addProduct() {
-    this.props.dispatch(createProduct({
-      name: 'New item',
-      make: '',
-      type: '',
-      reference_id: '',
-      style: '',
-      model: '',
-      description: '',
-      status: '',
-    }));
+  addProduct(crud) {
+      const data = {
+          name: 'New item',
+          make: '',
+          type: '',
+          reference_id: '',
+          style: '',
+          model: '',
+          description: '',
+          status: '',
+      };
+      crud.createItem({idProp:"uuid", dataProp:"results", data});
+
   }
 
   /**
@@ -148,25 +149,32 @@ class Products extends React.Component {
 
   render() {
     return (
-      <ProductsWrapper className="products">
-        <div className="products__header">
-          <div className="products__header__left">
-            <h3>Products list</h3>
-            <FjButton size="small" onClick={this.addProduct}>
-              <img src={plusIcon} />
-              <span>Add new</span>
-            </FjButton>
-          </div>
-          <ViewSwitcher options={this.state.layoutTypes} action={(event) => this.selectLayout(event, this)} />
-        </div>
-        <div className="products__list">
-          {this.createItems()}
-        </div>
-      </ProductsWrapper>
+        <Crud
+            endPoint="products/products/"
+            reducer="crudDataReducer"
+        >
+            { crud => {
+                return (
+                    <ProductsWrapper className="products">
+                        <div className="products__header">
+                            <div className="products__header__left">
+                                <h3>Products list</h3>
+                                <FjButton size="small" onClick={this.addProduct.bind(null,crud)}>
+                                    <img src={plusIcon} />
+                                    <span>Add new</span>
+                                </FjButton>
+                            </div>
+                            <ViewSwitcher options={this.state.layoutTypes} action={(event) => this.selectLayout(event, this)} />
+                        </div>
+                        <div className="products__list">
+                            {this.createItems(crud)}
+                        </div>
+                    </ProductsWrapper>
+                )
+            }}
+        </Crud>
     )
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({...ownProps, ...state.productsReducer});
-
-export default connect(mapStateToProps)(Products);
+export default Products;
