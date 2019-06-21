@@ -27,7 +27,7 @@ function ProductsCardItem({ layout, product, options, action }) {
       ...payload
     };
     action(event, uuid, product);
-  }
+  };
 
   return (
     <CardItem

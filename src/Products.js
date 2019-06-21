@@ -138,6 +138,7 @@ class Products extends React.Component {
   /**
    * Updates the card view type
    * @param {string} layout the active view
+   * @param {object} component - state of current component
    */
   selectLayout(layout, component) {
     const layoutTypes = component.state.layoutTypes.map(item => ({
