@@ -1,0 +1,8 @@
+{
+  "name": "Products",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Humanitec/product_client_react.git",
+  "author": "mughees <mugheesilyas@live.com>",
+  "license": "MIT"
+}
