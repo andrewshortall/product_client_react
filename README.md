@@ -25,14 +25,14 @@ Current React version: **v0.0.1**
 
 To **build** the project: 
 
--  Development environment: `npm run build`
--  Production environment: `npm run build-prod`
+-  Development environment: `yarn run build`
+-  Production environment: `yarn run build-prod`
 
 The build artifacts will be stored in the `dist/` directory.
 
 To **run tests** using [Jest](https://jestjs.io/): 
 
-`npm run test`
+`yarn run test`
 
 ## File structure
 
@@ -57,7 +57,7 @@ This client connects to the following services:
 
 ## API documentation (React Styleguidist)
 
-Run `npm run styleguidist` to generate Styleguidist documentation to the `/styleguide` directory.
+Run `yarn run styleguidist` to generate Styleguidist documentation to the `/styleguide` directory.
 
 ## License
 
