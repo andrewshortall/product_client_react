@@ -1,5 +1,5 @@
 import React from 'react'
-import { FjButton } from 'freyja-react'
+import { FjButton } from '@buildlyio/freyja-react'
 import styled from 'styled-components'
 import { colors } from 'colors'
 import { rem } from 'polished'
